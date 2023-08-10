@@ -27,8 +27,8 @@ class SignUpView extends StatelessWidget {
                   alignment: Alignment.center,
                   child: Image.asset(
                     'assets/imgs/TravelersTrek.png',  
-                    width: 250,  
-                    height: 250,
+                    width: 200,  
+                    height: 200,
                   ),
                 ),
     
