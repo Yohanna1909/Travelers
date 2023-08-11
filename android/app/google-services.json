@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "27167800510",
+    "project_id": "traveler-s-trek",
+    "storage_bucket": "traveler-s-trek.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:27167800510:android:247ab5d3c88b2806e032ef",
+        "android_client_info": {
+          "package_name": "com.example.travelers"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "27167800510-a723hcsvu75p82e2dvr3a9d94rb336oc.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCetKlN12eD-pZMjPQURaDhZRD3btM7fOI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "27167800510-a723hcsvu75p82e2dvr3a9d94rb336oc.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

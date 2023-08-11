@@ -1,8 +1,12 @@
+// ignore_for_file: avoid_print
+
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travelers/utils/global.colors.dart';
 import 'package:travelers/utils/widgets/button.global.dart';
 import 'package:travelers/utils/widgets/social.login.dart';
 import 'package:travelers/utils/widgets/text.form.global.dart';
+import 'package:travelers/view/home.view.dart';
 import 'package:travelers/view/signup.view.dart';
 
 class LoginView extends StatelessWidget {
@@ -55,7 +59,18 @@ class LoginView extends StatelessWidget {
                   obscure: true
                 ),
                 const SizedBox(height: 10),
-                const ButtonGlobal(),
+                ButtonGlobal(isLogin: true, context: context, onTap: (){
+                  FirebaseAuth.instance.signInWithEmailAndPassword(
+                    email: EmailController.text,
+                    password: PasswordController.text).then((value){
+                      print('Login');
+                      Navigator.push(context,
+                      MaterialPageRoute(builder: (context)=>Home()));
+                    }
+                  ).onError((error, stackTrace){
+                    print("Error ${error.toString()}");
+                  });
+                }),
                 const SizedBox(height: 25),
                 const SocialLogin(text: '-Or sign in with-'),
               ],

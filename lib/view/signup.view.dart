@@ -1,16 +1,18 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:travelers/utils/global.colors.dart';
 import 'package:travelers/utils/widgets/social.login.dart';
 import 'package:travelers/utils/widgets/text.form.global.dart';
+import 'package:travelers/view/home.view.dart';
 import 'package:travelers/view/login.view.dart';
 
-import '../utils/widgets/button2.global.dart';
+import '../utils/widgets/button.global.dart';
 
 class SignUpView extends StatelessWidget {
   SignUpView({super.key});
   final TextEditingController EmailController = TextEditingController();
   final TextEditingController PasswordController = TextEditingController();
-  final TextEditingController CPasswordController = TextEditingController();
+  
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -56,15 +58,19 @@ class SignUpView extends StatelessWidget {
                   obscure: true
                 ),
                 const SizedBox(height: 10),
-                //Confirm Password input
-                TextFormGlobal(
-                  controller: CPasswordController, 
-                  text: "Confirm Password", 
-                  textInputType: TextInputType.text, 
-                  obscure: true
-                ),
-                const SizedBox(height: 10),
-                const ButtonGlobal2(),
+                ButtonGlobal(isLogin: false, context: context, onTap: (){
+                  FirebaseAuth.instance.createUserWithEmailAndPassword(
+                    email: EmailController.text, 
+                    password: PasswordController.text
+                  ).then((value){
+                    print('Created New Account');
+                    print('Sign Up');
+                    Navigator.push(context,
+                    MaterialPageRoute(builder: (context)=>const Home()));
+                  }).onError((error, stackTrace){
+                    print("Error ${error.toString()}");
+                  });
+                }),
                 const SizedBox(height: 25),
                 const SocialLogin(text: '-Or sign up with-'),
               ], 
