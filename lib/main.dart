@@ -25,7 +25,7 @@ class PantallaMapa extends StatefulWidget {
 }
 
 class _PantallaMapaState extends State<PantallaMapa> {
-  //Firebase inicializar
+  //Inicializar Firebase
   Future <FirebaseApp> _initializeFirebase() async{
     FirebaseApp firebaseApp= await Firebase.initializeApp();
     return firebaseApp;
@@ -38,7 +38,7 @@ class _PantallaMapaState extends State<PantallaMapa> {
         future: _initializeFirebase(),
         builder:(context, snapshot){
           if(snapshot.connectionState== ConnectionState.done){
-            return SplashView();
+            return const SplashView();
           }
           return const Center(
             child: CircularProgressIndicator(),

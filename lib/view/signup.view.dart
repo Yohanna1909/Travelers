@@ -20,7 +20,7 @@ class SignUpView extends StatelessWidget {
         child: SafeArea(
           child: Container(
             width: double.infinity,
-            padding: const EdgeInsets.all(15.0), 
+            padding: const EdgeInsets.all(15.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -28,8 +28,8 @@ class SignUpView extends StatelessWidget {
                 Container(
                   alignment: Alignment.center,
                   child: Image.asset(
-                    'assets/imgs/TravelersTrek.png',  
-                    width: 200,  
+                    'assets/imgs/TravelersTrek.png',
+                    width: 200,
                     height: 200,
                   ),
                 ),
@@ -44,36 +44,36 @@ class SignUpView extends StatelessWidget {
                 const SizedBox(height: 15),
                 //Email input
                 TextFormGlobal(
-                  controller: EmailController, 
-                  text:"Email", 
+                  controller: EmailController,
+                  text:"Email",
                   obscure:false,
                   textInputType: TextInputType.emailAddress
                 ),
                 const SizedBox(height: 10),
                 //Password input
                 TextFormGlobal(
-                  controller: PasswordController, 
-                  text: "Password", 
-                  textInputType: TextInputType.text, 
+                  controller: PasswordController,
+                  text: "Password",
+                  textInputType: TextInputType.text,
                   obscure: true
                 ),
                 const SizedBox(height: 10),
                 ButtonGlobal(isLogin: false, context: context, onTap: (){
                   FirebaseAuth.instance.createUserWithEmailAndPassword(
-                    email: EmailController.text, 
+                    email: EmailController.text,
                     password: PasswordController.text
                   ).then((value){
                     print('Created New Account');
                     print('Sign Up');
                     Navigator.push(context,
-                    MaterialPageRoute(builder: (context)=>const Home()));
+                    MaterialPageRoute(builder: (context)=> Home()));
                   }).onError((error, stackTrace){
                     print("Error ${error.toString()}");
                   });
                 }),
                 const SizedBox(height: 25),
                 const SocialLogin(text: '-Or sign up with-'),
-              ], 
+              ],
             )
           )
         )
