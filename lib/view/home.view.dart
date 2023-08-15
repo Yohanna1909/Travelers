@@ -27,14 +27,13 @@ class _HomeState extends State<Home> {
       body: screens[_currentIndex],
       bottomNavigationBar: Container(
         padding: const EdgeInsets.symmetric(horizontal:10.0),
-        margin:const EdgeInsets.only(bottom:10.0),
+        margin:const EdgeInsets.only(bottom:6.0),
         child: GNav(
           tabBackgroundColor: const Color.fromARGB(106, 133, 221, 123),
           gap: 8,
-          curve: Curves.easeOutExpo,
           tabBorderRadius: 20,
           activeColor:const Color.fromARGB(255, 18, 118, 23),
-          padding: const EdgeInsets.symmetric(vertical:15, horizontal:20),
+          padding: const EdgeInsets.symmetric(vertical:20, horizontal:20),
           selectedIndex: _currentIndex,
           onTabChange: (index) {
             setState(() {
