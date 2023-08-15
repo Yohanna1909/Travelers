@@ -1,6 +1,7 @@
 
 import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
 
 import '../home/home_controler.dart';
@@ -13,8 +14,9 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return ChangeNotifierProvider <HomeController>(
       create:(_){
-        final controller = HomeController();
-        controller.onMarkerTap.listen((String id) { 
+        const permission = Permission.location;
+        final controller = HomeController(permission);
+        controller.onMarkerTap.listen((String id) {
           print("got to $id");
         });
         return controller;
