@@ -4,22 +4,44 @@ import 'package:flutter/material.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:permission_handler/permission_handler.dart';
 import 'package:provider/provider.dart';
-import 'package:travelers/location/location_service.dart';
 
 import '../home/home_controler.dart';
+import '../location/location_service.dart';
 import '../utils/widgets/appBar.global.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
+  @override
+  _HomeScreenState createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
   final TextEditingController _searchController = TextEditingController();
-  final Completer<GoogleMapController> _controller= Completer();
+  final Completer<GoogleMapController> _controller = Completer();
+  final HomeController _homeController = HomeController(Permission.location);
+  Set<Marker>_markers=Set<Marker>();
   
   @override
+  void initState(){
+    super.initState();
+    _setMarker(LatLng(37.42796133580664, -122.085749655962));
+  }
+  void _setMarker(LatLng point){
+    setState((){
+      _markers.add(
+        Marker(
+          markerId: MarkerId('marker'),
+          position:point,
+        ),
+      );
+    });
+  }
+  @override
   Widget build(BuildContext context) {
-    const permission = Permission.location;
-    final controller = HomeController(permission);
 
     return ChangeNotifierProvider<HomeController>(
-      create: (_) {
+      create:(_){
+        const permission = Permission.location;
+        final controller = HomeController(permission);
         controller.onMarkerTap.listen((String id) {
           print("got to $id");
         });
@@ -44,22 +66,25 @@ class HomeScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(30),
                     ),
                     child: TextFormField(
-                      controller:_searchController,
+                      controller: _searchController,
                       textCapitalization: TextCapitalization.words,
                       decoration: const InputDecoration(
                         border: InputBorder.none,
                         hintText: 'Search here...',
                       ),
-                      onChanged: (value){
+                      onChanged: (value) {
                         print(value);
                       },
                     ),
                   ),
                   const Spacer(),
                   IconButton(
-                    onPressed: ()async{
-                      var place= await LocationService().getPlace(_searchController.text);
-                      _goToPlace(place);
+                    onPressed: () async {
+                      var place =
+                          await LocationService().getPlace(_searchController.text);
+                      if (place != null) {
+                        _goToPlace(place);
+                      }
                     },
                     icon: Icon(Icons.search),
                     color: Color.fromARGB(255, 18, 118, 23),
@@ -68,33 +93,37 @@ class HomeScreen extends StatelessWidget {
               ),
             ),
             Expanded(
-              child: GoogleMap(
-                markers: controller.markers,
-                onMapCreated: (GoogleMapController controller){
-                  _controller.complete(controller);
-                },
-                initialCameraPosition: controller.initialCameraPosition,
-                myLocationButtonEnabled: false,
-                zoomControlsEnabled: false,
-                compassEnabled: false,
-                onTap: controller.onTap,
+              child: Consumer <HomeController>(
+                builder: (_,controller,__)=>GoogleMap(
+                  markers: controller.markers,
+                  onMapCreated: (GoogleMapController controller) {
+                    _controller.complete(controller);
+                  },
+                  initialCameraPosition: controller.initialCameraPosition,
+                  myLocationButtonEnabled: false,
+                  zoomControlsEnabled: false,
+                  compassEnabled: false,
+                  onTap: controller.onTap,
+                ),
               ),
             ),
           ],
         ),
       ),
     );
-    
   }
-  Future<void> _goToPlace(Map<String,dynamic> place)async{
-    final double lat=place['geometry']['location']['lat'];
-    final double lng=place['geometry']['location']['lng'];
 
-    final GoogleMapController mcontroller=await _controller.future;
+  Future<void> _goToPlace(Map<String, dynamic> place) async {
+    final double lat = place['geometry']['location']['lat'];
+    final double lng = place['geometry']['location']['lng'];
+
+    final GoogleMapController mcontroller = await _controller.future;
     mcontroller.animateCamera(
       CameraUpdate.newCameraPosition(
-        CameraPosition(target: LatLng(lat, lng),zoom:12),
-      )
+        CameraPosition(target: LatLng(lat, lng), zoom: 12),
+      ),
     );
+    _setMarker(LatLng(lat, lng));
   }
 }
+

@@ -52,6 +52,7 @@ class HomeController extends ChangeNotifier {
     notifyListeners();
 
   }
+
   @override
   void dispose() {
     _markersController.close();

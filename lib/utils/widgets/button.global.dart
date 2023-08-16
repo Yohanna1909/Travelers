@@ -26,7 +26,7 @@ class ButtonGlobal extends StatelessWidget {
       ),
       child: GestureDetector(
         onTap: () {
-          onTap(); 
+          onTap();
         },
         child: Container(
           decoration: BoxDecoration(
