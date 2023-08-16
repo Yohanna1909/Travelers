@@ -21,7 +21,7 @@ class LoginView extends StatelessWidget {
         child: SafeArea(
           child: Container(
             width: double.infinity,
-            padding: const EdgeInsets.all(15.0), 
+            padding: const EdgeInsets.all(15.0),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -29,8 +29,8 @@ class LoginView extends StatelessWidget {
                 Container(
                   alignment: Alignment.center,
                   child: Image.asset(
-                    'assets/imgs/TravelersTrek.png',  
-                    width: 200,  
+                    'assets/imgs/TravelersTrek.png',
+                    width: 200,
                     height: 200,
                   ),
                 ),
@@ -45,17 +45,17 @@ class LoginView extends StatelessWidget {
                 const SizedBox(height: 15),
                 //Email input
                 TextFormGlobal(
-                  controller: EmailController, 
-                  text:"Email", 
+                  controller: EmailController,
+                  text:"Email",
                   obscure:false,
                   textInputType: TextInputType.emailAddress
                 ),
                 const SizedBox(height: 10),
                 //Password input
                 TextFormGlobal(
-                  controller: PasswordController, 
-                  text: "Password", 
-                  textInputType: TextInputType.text, 
+                  controller: PasswordController,
+                  text: "Password",
+                  textInputType: TextInputType.text,
                   obscure: true
                 ),
                 const SizedBox(height: 10),
