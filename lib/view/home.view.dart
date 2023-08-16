@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:google_nav_bar/google_nav_bar.dart';
 
 import 'camera.view.dart';
-import 'favorite.view.dart';
 import 'homeScreen.view.dart';
 import 'settings.view.dart';
 
@@ -17,7 +16,6 @@ class _HomeState extends State<Home> {
   int _currentIndex = 0;
   final screens = [
     HomeScreen(),
-    Favorite(),
     Camera(),
     Settings(),
   ];
@@ -44,10 +42,6 @@ class _HomeState extends State<Home> {
             GButton(
               icon: Icons.home_outlined,
               text: 'Home',
-            ),
-            GButton(
-              icon: Icons.favorite_border,
-              text: 'Favorite',
             ),
             GButton(
               icon: Icons.camera_alt_outlined,

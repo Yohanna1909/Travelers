@@ -24,7 +24,6 @@ class _RequestPermissionState extends State<RequestPermission> {
         if(status ==PermissionStatus.granted){
           Navigator.push(context, MaterialPageRoute(builder: (context)=> HomeScreen()));
         }
-
       }
     );
   }
